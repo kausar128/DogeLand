@@ -1,0 +1,42 @@
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index : 1;
+}
+.sticky  + .content {
+  padding-top: 2em;
+}
+.content section {
+	text-align: center;
+	margin-top: 50px;
+}
+.content section h1{
+	margin-bottom: 30px;
+}
+.section-row{margin: 15px 0;}
+.random-dog {
+    width: 400px;
+    height: 400px;
+}
+.all-breeds-container {
+	height: 300px;
+}
+.all-breeds{
+	max-height: 300px;
+    overflow-y: scroll;
+	padding-left: 25px;
+}
+.all-breeds a{
+    text-align: left;
+}
+.level-two{
+	margin-left: 15px;
+}
+.level-one.parent:after{
+	
+}
+.dog-by-breed {
+    width: 400px;
+    height: 400px;
+}
