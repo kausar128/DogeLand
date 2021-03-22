@@ -1,5 +1,27 @@
 $( document ).ready(function() {
-    breedList();
+	/*-------------------------- Loader --------------------------*/
+	const preloader = document.querySelector('.preloader');
+
+	const fadeEffect = function (){setInterval(() => {
+	// if we don't set opacity 1 in CSS, then   //it will be equaled to "", that's why we   // check it
+	if (!preloader.style.opacity) {
+	preloader.style.opacity = 1;
+	}
+	if (preloader.style.opacity > 0) {
+	preloader.style.opacity -= 0.1;
+	} else {
+	clearInterval(fadeEffect);
+	}
+	}, 200)};
+	try{
+		window.addEventListener('load', fadeEffect);
+	}
+	catch (e){
+		console.log(e);
+	}
+	/*-------------------------- Loader Ends --------------------------*/
+	breedList();
+
 });
 
 function randomDog(){
@@ -12,12 +34,15 @@ function randomDog(){
 }
 
 function breedList() { 
-  $.ajax({url : "https://dog.ceo/api/breeds/list/all", success : function (result) {
+  $.ajax({
+	url : "https://dog.ceo/api/breeds/list/all", 
+	success : function (result) {
 	  let listOfBreeds = result.message;
 	  $.each(listOfBreeds, function(key, value) {
 	    let levelOne = "", levelTwo = "", apiParam ="";
 		if(value.length){
-			levelOne = $("<a class='level-one list-group-item list-group-item-action'></a>").text(key);
+			apiParam = key;
+			levelOne = $("<a class='level-one list-group-item list-group-item-action' onclick=\"getImageByBreed('"+apiParam+"')\"></a>").text(key);
 			for(let i=0; i < value.length; i++){
 				/*if there are sub-breeds, then the API call uses the breed name like "main-breed/sub-breed". ex. Bulldog/English , Bulldog/Boston, Bulldog/French */
 				apiParam = key + "/" + value[i];
@@ -32,7 +57,8 @@ function breedList() {
 			$(".all-breeds")[0].append(levelOne[0]);
 		}
 	  }); 
-  }});
+	}
+  });
 }
 
 function getImageByBreed(breedName){
